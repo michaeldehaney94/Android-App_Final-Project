@@ -5,63 +5,114 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="10dp"
     android:background="#ffffff"
-    tools:context=".AddPost">
+    tools:context="com.example.baseproject.addPostFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
+        android:id="@+id/post_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
+        android:text="New Post"
         android:textColor="#000000"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/new_post"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        android:text="@string/new_post" />
-
-    <EditText
-        android:id="@+id/post_description"
+        android:id="@+id/upload_new_media"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:layout_marginTop="60dp"
-        android:inputType="textMultiLine"
-        android:backgroundTint="#000000"
-        android:hint="Write a description..."
-        android:textColorHint="	#696969"/>
-
-
-    <ImageButton
-        android:id="@+id/add_video_button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:background="@drawable/ic_camera" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColorHint="#696969"
-        android:hint="Tab icon to add content"/>
+        android:layout_marginStart="2dp"
+        android:text="Upload new media:"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="72dp" />
 
     <Button
-        android:id="@+id/post_button"
-        android:layout_width="200dp"
+        android:id="@+id/save_post_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/topaz_backgroundColor"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorPrimary"
+        android:text="Post"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="592dp" />
+
+
+    <ImageView
+        android:id="@+id/media_source_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:text="Post" />
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="147dp"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/content_title"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="303dp" />
+
+
+    <Button
+        android:id="@+id/gallery_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:text="Gallery"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="362dp" />
+
+    <Button
+        android:id="@+id/camera_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:text="Camera"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="269dp"
+        tools:layout_editor_absoluteY="362dp" />
+
+    <EditText
+        android:id="@+id/description_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#000000"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Add description..."
+        android:textColor="#000000"
+        android:layout_marginTop="10dp"
+        android:inputType="textMultiLine"
+        android:textColorHint="#000000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="481dp" />
+
+
+
 
 
 </LinearLayout>

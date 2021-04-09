@@ -1,63 +1,66 @@
 package com.example.baseproject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BaseActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
+    BottomNavigationView bottomNav;
 
+    ImageView imageView;
+    Button cameraBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        bottomNavigationView.findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+        bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new HomeFragment()).commit();
+
 
     }
 
-    //click event to open comments
-    //add explicit intent for comments activity
-    public void openComments(View view) {
-        Intent intent = new Intent(this, CommentsFragment.class);
-        startActivity(intent);
-    }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod =
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = null;
 
-                    Fragment fragment = null;
-
-                    switch (menuItem.getItemId()) {
-                        case R.id.home_icon:
-                            fragment = new HomeFragment();
+                    switch (item.getItemId()) {
+                        case R.id.dashboard:
+                            selectedFragment = new HomeFragment();
                             break;
-                        case R.id.add_icon:
-                            fragment = new AddPost();
+                        case R.id.account:
+                            selectedFragment = new SignInFragment();
+                            break;
+                        case R.id.add_post:
+                            selectedFragment = new addPostFragment();
                             break;
                     }
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.container, fragment)
-                            .commit();
-                    //when menu icon is selected in switch-case, it will store in fragment.
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            selectedFragment).commit();
                     return true;
                 }
-            };
+    };
+
+
+
 
 
 

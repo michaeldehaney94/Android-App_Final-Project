@@ -5,30 +5,30 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
-    private ArrayList<Post> list = new ArrayList<>();
-    private PostAdapter adapter;
-    private RecyclerView feedRecyclerView;
+public class HomeFragment extends Fragment implements Observer<List<Post>> {
 
-
+    private final String TAG = "HomeFragment";
+    private ArrayList<Post> postList = new ArrayList<>();
+    private HomeAdapter adapter;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -40,9 +40,10 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public HomeFragment() {
+    public HomeFragment () {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -69,9 +70,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,14 +81,26 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        feedRecyclerView = view.findViewById(R.id.feed_post_list);
+        RecyclerView recyclerView = view.findViewById(R.id.home_feed_list);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
-        feedRecyclerView.setLayoutManager(manager);
-        adapter = new PostAdapter(list);
-        feedRecyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(manager);
+        adapter = new HomeAdapter(postList);
+        recyclerView.setAdapter(adapter);
+
+        viewModel.getPosts().observe(getViewLifecycleOwner(), this);
     }
 
+    @Override
+    public void onChanged(List<Post> posts) {
+        for (Post post: posts) {
+            Log.d(TAG, post.toString());
+            if (!postList.contains(post)) {
+                postList.add(post);
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
 }

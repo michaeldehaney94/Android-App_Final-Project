@@ -5,4 +5,4 @@
     android:layout_height="match_parent"
     android:background="@drawable/launch_screen"
     android:orientation="vertical"
-    tools:context=".SplashFragment" />
+    tools:context="com.example.baseproject.SplashFragment" />

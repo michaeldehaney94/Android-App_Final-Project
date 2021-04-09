@@ -14,27 +14,23 @@ import android.view.ViewGroup;
 
 public class SplashFragment extends Fragment {
 
-    public SplashFragment() {
-        
-    }
+    public SplashFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_splash, container, false);
-
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.postDelayed(new Runnable() {
+        view.postDelayed(new Runnable(){
             @Override
             public void run() {
-                Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_homeFragment);
+                Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_baseActivity);
             }
-        },2000);
+        }, 2000);
     }
 }

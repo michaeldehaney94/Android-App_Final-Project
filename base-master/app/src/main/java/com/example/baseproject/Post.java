@@ -2,15 +2,40 @@ package com.example.baseproject;
 
 import java.time.LocalDateTime;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class Post {
+    private String userId;
+    private LocalDateTime timestamp;
+    private String description;
+    private String type;
+    private int comments;
+    private int likes;
+    private String Id;
 
-    String type;
-    String TextContent;
-    String VideoContent;
-    LocalDateTime DateTime;
+    public String getUserId(){
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public LocalDateTime getDateTime() {
+        return timestamp;
+    }
+
+    public void setDateTime(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getType() {
         return type;
@@ -20,29 +45,57 @@ public class Post {
         this.type = type;
     }
 
-    public String getTextContent() {
-        return TextContent;
+    public int getComments() {
+        return comments;
     }
 
-    public void setTextContent(String textContent) {
-        this.TextContent = textContent;
+    public void setComments(int comments) {
+        this.comments = comments;
     }
 
-    public String getVideoContent() {
-        return VideoContent;
+    public int getLikes() {
+        return likes;
     }
 
-    public void setVideoContent(String videoContent) {
-        this.VideoContent = videoContent;
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
-    public LocalDateTime getDateTime() {
-        return DateTime;
+    public String getId() {
+        return Id;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.DateTime = dateTime;
+    public void setId(String id) {
+        Id = id;
     }
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(this == obj){
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Post post = (Post) obj;
+        return Id.equals(post.Id);
+    }
 
+    @Override
+    public int hashCode() {
+        return Id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "ChatBout{" +
+                "userId='" + userId + '\'' +
+                ", timestamp=" + timestamp +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", comments=" + comments +
+                ", likes=" + likes +
+                ", Id='" + Id + '\'' +
+                '}';
+    }
 }

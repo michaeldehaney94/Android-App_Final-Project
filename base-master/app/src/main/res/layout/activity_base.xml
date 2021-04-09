@@ -1,20 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".BaseActivity">
+    android:background="#ffffff"
+    tools:context="com.example.baseproject.BaseActivity">
 
-    <fragment
-        android:id="@+id/nav_graph"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_graph"-->
+<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--        android:layout_width="415dp"-->
+<!--        android:layout_height="730dp"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        app:defaultNavHost="true"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        app:navGraph="@navigation/nav_graph" />-->
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/home_title"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:text="@string/home"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textSize="30dp"-->
+<!--        android:textStyle="bold"-->
+<!--        tools:layout_editor_absoluteX="10dp"-->
+<!--        tools:layout_editor_absoluteY="0dp" />-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/home_feed_list"-->
+<!--        android:layout_width="403dp"-->
+<!--        android:layout_height="625dp"-->
+<!--        tools:layout_editor_absoluteX="4dp"-->
+<!--        tools:layout_editor_absoluteY="40dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph"/>
+        android:layout_above="@id/bottom_navigation"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
 
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

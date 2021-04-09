@@ -2,11 +2,12 @@
     <string name="app_name">BaseProject</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">OnTopic Media</string>
-    <string name="enter_comment">Comments</string>
-    <string name="title_activity_bottom_nav">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="new_post">New Post</string>
+    <string name="home">Home</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="dashboard">Home</string>
+    <string name="add">Add Post</string>
+    <string name="account">Account</string>
+    <string name="username">Username</string>
+    <string name="forgot_login_text">Forgot Login ?</string>
 </resources>
