@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.net.InternetDomainName;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import static android.app.Activity.RESULT_OK;
+
 import java.util.Date;
 
 import java.io.ByteArrayOutputStream;
@@ -41,6 +52,8 @@ import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.os.Environment.getExternalStoragePublicDirectory;
 
@@ -52,6 +65,8 @@ import static android.os.Environment.getExternalStoragePublicDirectory;
  */
 public class addPostFragment extends Fragment {
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance(); //firebase database collection
+    private HomeViewModel homeViewModel;
 
     ImageView imageView;
     TextView textVw;
@@ -79,6 +94,7 @@ public class addPostFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     public addPostFragment() {
         // Required empty public constructor
@@ -118,7 +134,7 @@ public class addPostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_post, container, false);
 
         textVw = view.findViewById(R.id.content_title);
-        editText = view.findViewById(R.id.description_text);
+        editText = view.findViewById(R.id.description);
         postBtn = view.findViewById(R.id.save_post_btn); //save to timeline feed button
         galleryBtn = view.findViewById(R.id.gallery_button); //access gallery button
         imageView = view.findViewById(R.id.media_source_placeholder); //display image or video content
@@ -128,7 +144,7 @@ public class addPostFragment extends Fragment {
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                savePost();
             }
         });
 
@@ -154,6 +170,8 @@ public class addPostFragment extends Fragment {
         });
         return view;
     }
+
+
 
     private void askCameraPermissions() {
         if(ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.CAMERA) !=
@@ -185,12 +203,13 @@ public class addPostFragment extends Fragment {
                         "com.example.android.fileprovider",
                         photoFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(intent, CAMERA_REQUEST_CODE);
             }
         }
     }
 
     //creates the image file and filename.
-    private File createPhotoFile()  {
+    private File createPhotoFile() throws IOException  {
         timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         imageFileName = "JPEG_"+timeStamp +"_";
         image = null;
@@ -245,13 +264,12 @@ public class addPostFragment extends Fragment {
         }
     }
 
+
     private String getFileExt(Uri contentUri) {
         ContentResolver content = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(content.getType(contentUri));
     }
-
-
 
     /*  @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -260,9 +278,6 @@ public class addPostFragment extends Fragment {
         imageView.setImageBitmap(bitmap);
 
     } */
-
-
-
 
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -285,7 +300,32 @@ public class addPostFragment extends Fragment {
 //
 //    }
 
+    private void savePost() {
 
+        Map<String, Object> post = new HashMap<>();
+
+        post.put("timestamp", (new Date()).getTime());
+        post.put("description", editText.getText().toString());
+        post.put("name", textVw.getText().toString());
+        post.put("imageUrl", filePath.toString());
+
+
+        db.collection("post")
+                .add(post)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+
+    }
 
 
 }

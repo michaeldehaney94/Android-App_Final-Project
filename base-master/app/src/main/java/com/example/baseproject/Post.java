@@ -9,9 +9,10 @@ public class Post {
     private LocalDateTime timestamp;
     private String description;
     private String type;
-    private int comments;
+    private String comments;
     private int likes;
     private String Id;
+
 
     public String getUserId(){
         return userId;
@@ -45,11 +46,11 @@ public class Post {
         this.type = type;
     }
 
-    public int getComments() {
+    public String getComments() {
         return comments;
     }
 
-    public void setComments(int comments) {
+    public void setComments(String comments) {
         this.comments = comments;
     }
 

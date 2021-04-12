@@ -28,7 +28,4 @@
         tools:layout_editor_absoluteY="40dp"
         tools:ignore="MissingConstraints" />
 
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

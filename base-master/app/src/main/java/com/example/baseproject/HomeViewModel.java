@@ -19,8 +19,8 @@ import androidx.lifecycle.ViewModel;
 
 public class HomeViewModel extends ViewModel {
 
-    private final String TAG = "HomeViewModel";
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final String TAG = "HomeViewModel: ";
+    FirebaseFirestore db = FirebaseFirestore.getInstance(); //firebase
     private MutableLiveData<List<Post>> posts;
 
     public LiveData<List<Post>> getPosts() {
@@ -33,7 +33,7 @@ public class HomeViewModel extends ViewModel {
 
     private void loadPosts () {
         //Access posts data collection
-        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

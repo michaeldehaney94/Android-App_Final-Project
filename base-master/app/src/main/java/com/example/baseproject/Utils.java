@@ -25,7 +25,7 @@ public class Utils {
         String userId = (String) queryDocumentSnapshot.get("userId");
         Timestamp timestamp = (queryDocumentSnapshot.get("timestamp") == null) ? null : queryDocumentSnapshot.getTimestamp("timestamp");
         String description = (String) queryDocumentSnapshot.get("description");
-        int comments = (queryDocumentSnapshot.get("comments") == null) ? 0 : queryDocumentSnapshot.getLong("comments").intValue();
+        String comments = String.valueOf((queryDocumentSnapshot.get("comments") == null) ? 0 : queryDocumentSnapshot.getLong("comments").intValue());
         int likes = (queryDocumentSnapshot.get("likes") == null) ? 0 : queryDocumentSnapshot.getLong("likes").intValue();
         String imageUrl = (String) queryDocumentSnapshot.get("imageUrl");
 

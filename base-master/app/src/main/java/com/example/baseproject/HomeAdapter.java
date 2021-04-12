@@ -32,7 +32,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     public int getItemViewType(int position) {
         Post current = posts.get(position);
 
-        if (current.getType().equals("video")) {
+        if (current.getType().equals("image")) {
             return 1;
         }
         return 0;
@@ -79,6 +79,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         TextView dateTimeView;
         TextView textView;
         ImageView imageView;
+        TextView description;
+
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -86,9 +88,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
             avatarView = itemView.findViewById(R.id.profile);
             nameView = itemView.findViewById(R.id.name);
-            dateTimeView = itemView.findViewById(R.id.detail_description);
+            dateTimeView = itemView.findViewById(R.id.timestamp);
             textView = itemView.findViewById(R.id.text);
             imageView = itemView.findViewById(R.id.photo);
+            description = itemView.findViewById(R.id.description);
         }
     }
 }

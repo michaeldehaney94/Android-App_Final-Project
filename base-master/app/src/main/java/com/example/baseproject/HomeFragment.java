@@ -15,6 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +32,8 @@ public class HomeFragment extends Fragment implements Observer<List<Post>> {
     private final String TAG = "HomeFragment";
     private ArrayList<Post> postList = new ArrayList<>();
     private HomeAdapter adapter;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -76,7 +81,10 @@ public class HomeFragment extends Fragment implements Observer<List<Post>> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_home, container, false);
+
+
     }
 
     @Override
@@ -91,6 +99,7 @@ public class HomeFragment extends Fragment implements Observer<List<Post>> {
         recyclerView.setAdapter(adapter);
 
         viewModel.getPosts().observe(getViewLifecycleOwner(), this);
+
     }
 
     @Override
@@ -103,4 +112,6 @@ public class HomeFragment extends Fragment implements Observer<List<Post>> {
             }
         }
     }
+
+
 }
