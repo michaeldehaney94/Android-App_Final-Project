@@ -15,6 +15,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -22,9 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
-    private ArrayList<Post> posts;
+    private ArrayList<Post> posts = new ArrayList<>();
+
 
     public HomeAdapter ( ArrayList<Post> posts) {
+
         this.posts = posts;
     }
 
@@ -45,13 +48,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         view = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.post_feed, parent, false);
-        return new ViewHolder(view);
+        return new HomeAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post current = posts.get(position);
-        Drawable drawable = ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.exo_controls_play);
+        Drawable drawable = ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_launcher_foreground);
 
         if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
@@ -74,7 +77,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        CircularImageView avatarView;
+        ImageView avatarView;
         TextView nameView;
         TextView dateTimeView;
         TextView textView;

@@ -30,8 +30,9 @@ import java.util.List;
 public class HomeFragment extends Fragment implements Observer<List<Post>> {
 
     private final String TAG = "HomeFragment";
-    private ArrayList<Post> postList = new ArrayList<>();
+    private ArrayList<Post> posts = new ArrayList<>();
     private HomeAdapter adapter;
+    private RecyclerView recyclerView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -81,24 +82,27 @@ public class HomeFragment extends Fragment implements Observer<List<Post>> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        recyclerView = view.findViewById(R.id.home_feed_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(),
+//                LinearLayoutManager.VERTICAL, false);
+        //recyclerView.setLayoutManager(manager);
+        adapter = new HomeAdapter(posts);
+        recyclerView.setAdapter(adapter);
 
+        viewModel.getPosts().observe(getViewLifecycleOwner(), this);
 
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        RecyclerView recyclerView = view.findViewById(R.id.home_feed_list);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(manager);
-        adapter = new HomeAdapter(postList);
-        recyclerView.setAdapter(adapter);
 
-        viewModel.getPosts().observe(getViewLifecycleOwner(), this);
+
 
     }
 
@@ -106,8 +110,8 @@ public class HomeFragment extends Fragment implements Observer<List<Post>> {
     public void onChanged(List<Post> posts) {
         for (Post post: posts) {
             Log.d(TAG, post.toString());
-            if (!postList.contains(post)) {
-                postList.add(post);
+            if (!posts.contains(post)) {
+                posts.add(post);
                 adapter.notifyDataSetChanged();
             }
         }
