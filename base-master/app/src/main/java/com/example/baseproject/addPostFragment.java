@@ -145,6 +145,7 @@ public class addPostFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 savePost();
+                startActivity(new Intent(getActivity(), BaseActivity.class));
             }
         });
 
