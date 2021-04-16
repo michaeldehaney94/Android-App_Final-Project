@@ -23,10 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
-    private ArrayList<Post> posts = new ArrayList<>();
+    private final List<Post> posts;
 
 
-    public HomeAdapter ( ArrayList<Post> posts) {
+    public HomeAdapter ( List<Post> posts) {
 
         this.posts = posts;
     }

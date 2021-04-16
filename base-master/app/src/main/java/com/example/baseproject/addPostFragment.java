@@ -309,9 +309,27 @@ public class addPostFragment extends Fragment {
         post.put("description", editText.getText().toString());
         post.put("name", textVw.getText().toString());
         post.put("imageUrl", filePath.toString());
+        post.put("type", "image");
+        post.put("Image", imageFileName);
 
 
-        db.collection("post")
+
+//        db.collection("post")
+//                .add(post)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Error adding document", e);
+//                    }
+//                });
+
+        db.collection("Post")
                 .add(post)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

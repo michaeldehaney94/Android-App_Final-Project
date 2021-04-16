@@ -1,5 +1,7 @@
 package com.example.baseproject;
 
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.time.LocalDateTime;
 
 import androidx.annotation.Nullable;
@@ -11,6 +13,7 @@ public class Post {
     private String type;
     private String comments;
     private int likes;
+    private String images;
     private String Id;
 
 
@@ -29,6 +32,7 @@ public class Post {
     public void setDateTime(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
 
     public String getDescription() {
         return description;
@@ -86,6 +90,7 @@ public class Post {
     public int hashCode() {
         return Id.hashCode();
     }
+
 
     @Override
     public String toString() {

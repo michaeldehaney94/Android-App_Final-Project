@@ -15,8 +15,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,19 +38,16 @@ import java.util.List;
 public class HomeFragment extends Fragment implements Observer<List<Post>> {
 
     private final String TAG = "HomeFragment";
-    private ArrayList<Post> posts = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
     private HomeAdapter adapter;
     private RecyclerView recyclerView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -51,15 +56,6 @@ public class HomeFragment extends Fragment implements Observer<List<Post>> {
     }
 
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -82,34 +78,29 @@ public class HomeFragment extends Fragment implements Observer<List<Post>> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
-        recyclerView = view.findViewById(R.id.home_feed_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(),
-//                LinearLayoutManager.VERTICAL, false);
-        //recyclerView.setLayoutManager(manager);
-        adapter = new HomeAdapter(posts);
-        recyclerView.setAdapter(adapter);
-
-        viewModel.getPosts().observe(getViewLifecycleOwner(), this);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
+        recyclerView = view.findViewById(R.id.home_feed_list);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+        adapter = new HomeAdapter(posts);
+        recyclerView.setAdapter(adapter);
+        posts = new ArrayList<>();
 
-
-
+        viewModel.getPosts().observe(getViewLifecycleOwner(), this);
+        
     }
 
     @Override
     public void onChanged(List<Post> posts) {
         for (Post post: posts) {
-            Log.d(TAG, post.toString());
+            //Log.i(TAG, post.toString());
             if (!posts.contains(post)) {
                 posts.add(post);
                 adapter.notifyDataSetChanged();

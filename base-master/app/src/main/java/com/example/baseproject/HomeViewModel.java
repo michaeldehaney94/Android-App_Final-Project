@@ -33,7 +33,7 @@ public class HomeViewModel extends ViewModel {
 
     private void loadPosts () {
         //Access posts data collection
-        db.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -49,7 +49,7 @@ public class HomeViewModel extends ViewModel {
                         Post post = Utils.convertToPost(document);
 
                         if (!list.contains(post)) {
-                            Log.i(TAG, post.toString());
+                            //Log.i(TAG, post.toString());
                             list.add(post);
                         }
                     }
